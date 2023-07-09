@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<robot name="arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:property name="intom" value="0.0254"/>
+
+	<xacro:macro name="sw_origin" params="x y z roll:=0 pitch:=0 yaw:=0">
+		<origin xyz="${x*intom} ${-z*intom} ${y*intom}" rpy="${roll} ${pitch} ${yaw}"/>
+	</xacro:macro>
+	
+	<!-- Units: lb, in, lb*in^2 -->
+    <xacro:macro name="sw_inertial" params="m X Y Z Lxx Lxy Lxz Lyy Lyz Lzz">
+	<inertial>
+	    <mass value="${m*lbtokg}"/>
+	    <xacro:sw_origin x="${X}" y="${Y}" z="${Z}"/>
+	    <inertia
+		ixx="${Lxx*lbsqintokgsqm}" ixy="${Lxz*lbsqintokgsqm}" ixz="${-Lxy*lbsqintokgsqm}"
+		iyy="${Lzz*lbsqintokgsqm}" iyz="${Lyz*lbsqintokgsqm}"
+		izz="${Lyy*lbsqintokgsqm}"/>
+	</inertial>
+    </xacro:macro>
+
+	<link name="arm_a1">
+		<xacro:sw_inertial
+			m="3.8185" X="-3.34872" Y="-7.71683" Z="0.00031"
+			Lxx="100.85864" Lxy="2.33423" Lxz="-0.07753"
+			Lyy="40.30078" Lyz="-0.00376" Lzz="69.49319"
+		/>
+	</link>
+
+	<joint name="arm_j1" type="revolute">
+		<xacro:sw_origin x="-3.50000000" y="0.51712500" z="0"/>
+		<parent link="arm_a1"/>
+		<child link="arm_a2" />
+		<axis xyz="0 0 1"/>
+		<limit lower="${radians(-180)}" upper="${radians(180)}" effort="0" velocity="0"/>
+		
+	</joint>
+
+	<link name="arm_a2">
+		<xacro:sw_inertial
+            m=3.6524 X=0 Y=2.7203 Z=0.03799
+            Lxx=21.53 Lxy=0 Lxz=0
+            Lyy=10.896 Lyz=0.14287 Lzz=14.594
+        />
+	</link>
+
+	<joint name="arm_j2" type="revolute">
+		<xacro:sw_origin x="0" y="3.75000000" z="0"/>
+		<parent link="arm_a2"/>
+		<child link="arm_a3"/>
+		<axis xyz="0 1 0"/>
+		<limit lower="${radians(-135)}" upper="${radians(15)}" effort="0" velocity="0"/>
+	</joint>
+
+	<link name="arm_a3">
+		<xacro:sw_inertial
+            m=6.5626 X=9.0018 Y=-0.00037 Z=4.4146
+            Lxx=65.558 Lxy=-0.15469 Lxz=0.02472
+            Lyy=525.31 Lyz=-0.00494 Lzz=465.43
+        />
+	</link>
+
+	<joint name="arm_j3" type="revolute">
+		<xacro:sw_origin x="18" y="0" z="0"/>
+		<parent link="arm_a3"/>
+		<child link="arm_a4"/>
+		<axis xyz="0 1 0"/>
+		<limit lower="${radians(-120)}" upper="${radians(120)}" effort="0" velocity="0"/>
+	</joint>
+
+	<link name="arm_a4">
+		<xacro:sw_inertial
+            m=5.3253 X=5.0947 Y=4e-05 Z=0.0248
+            Lxx=17.854 Lxy=-0.00057 Lxz=-0.72764
+            Lyy=247.16 Lyz=-0.00011 Lzz=234.26
+        />
+	</link>
+
+	<joint name="arm_j4" type="continuous">
+		<xacro:sw_origin x="4.48622047" y="0" z="0"/>
+		<parent link="arm_a4"/>
+		<child link="arm_a5"/>
+		<axis xyz="1 0 0"/>
+		<limit effort="0" velocity="0"/>
+	</joint>
+
+	<link name="arm_a5">
+		<xacro:sw_inertial
+            m=1332.9 X=376.32 Y=-0.00113 Z=6.3196
+            Lxx=5.7867e+06 Lxy=-521.75 Lxz=5.2056e+05
+            Lyy=1.2798e+07 Lyz=-281.47 Lzz=8.9776e+06
+        />
+	</link>
+
+	<joint name="arm_j5" type="revolute">
+		<xacro:sw_origin x="17.25000000" y="0" z="0"/>
+		<parent link="arm_a5"/>
+		<child link="arm_a6"/>
+		<axis xyz="0 1 0"/>
+		<limit lower="${radians(-90)}" upper="${radians(90)}" effort="0" velocity="0"/>
+	</joint>
+	<link name="arm_a6">
+		<xacro:sw_inertial
+            m=2.2722 X=1.6533 Y=0.00019 Z=-0.001
+            Lxx=8.1895 Lxy=-8e-05 Lxz=0.00283
+            Lyy=8.8847 Lyz=-0.00074 Lzz=6.3573
+        />
+	</link>
+
+	<joint name="arm_j6" type="continuous">
+		<xacro:sw_origin x="2.98622047" y="0" z="0"/>
+		<parent link="arm_a6"/>
+		<child link="arm_a7"/>
+		<axis xyz="1 0 0"/>
+		<limit effort="0" velocity="0"/>
+	</joint>
+
+	<link name="arm_a7">
+	<!-- Waiting for the gripper to be done -->
+	</link>
+</robot>
