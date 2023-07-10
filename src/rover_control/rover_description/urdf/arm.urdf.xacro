@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <robot name="arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:property name="intom" value="0.0254"/>
+	<xacro:property name="lbtokg" value="0.454"/>
+	<xacro:property name="lbsqintokgsqm" value="703.07"/>
 
 	<xacro:macro name="sw_origin" params="x y z roll:=0 pitch:=0 yaw:=0">
 		<origin xyz="${x*intom} ${-z*intom} ${y*intom}" rpy="${roll} ${pitch} ${yaw}"/>
@@ -37,9 +39,9 @@
 
 	<link name="arm_a2">
 		<xacro:sw_inertial
-            m=3.6524 X=0 Y=2.7203 Z=0.03799
-            Lxx=21.53 Lxy=0 Lxz=0
-            Lyy=10.896 Lyz=0.14287 Lzz=14.594
+            m= "3.6524" X= "0" Y= "2.7203" Z= "0.03799"
+            Lxx= "21.53" Lxy="0" Lxz="0"
+            Lyy="10.896" Lyz="0.14287" Lzz="14.594"
         />
 	</link>
 
@@ -53,9 +55,9 @@
 
 	<link name="arm_a3">
 		<xacro:sw_inertial
-            m=6.5626 X=9.0018 Y=-0.00037 Z=4.4146
-            Lxx=65.558 Lxy=-0.15469 Lxz=0.02472
-            Lyy=525.31 Lyz=-0.00494 Lzz=465.43
+            m="6.5626" X="9.0018" Y="-0.00037" Z="4.4146"
+            Lxx="65.558" Lxy="-0.15469" Lxz="0.02472"
+            Lyy="525.31" Lyz="-0.00494" Lzz="465.43"
         />
 	</link>
 
@@ -69,9 +71,9 @@
 
 	<link name="arm_a4">
 		<xacro:sw_inertial
-            m=5.3253 X=5.0947 Y=4e-05 Z=0.0248
-            Lxx=17.854 Lxy=-0.00057 Lxz=-0.72764
-            Lyy=247.16 Lyz=-0.00011 Lzz=234.26
+            m="5.3253" X="5.0947" Y="0.0004" Z="0.0248"
+            Lxx="17.854" Lxy="-0.00057" Lxz="-0.72764"
+            Lyy="247.16" Lyz="-0.00011" Lzz="234.26"
         />
 	</link>
 
@@ -85,9 +87,9 @@
 
 	<link name="arm_a5">
 		<xacro:sw_inertial
-            m=1332.9 X=376.32 Y=-0.00113 Z=6.3196
-            Lxx=5.7867e+06 Lxy=-521.75 Lxz=5.2056e+05
-            Lyy=1.2798e+07 Lyz=-281.47 Lzz=8.9776e+06
+            m="1332.9" X="376.32" Y="-0.00113" Z="6.3196"
+            Lxx="5.7867e+06" Lxy="-521.75" Lxz="5.2056e+05"
+            Lyy="1.2798e+07" Lyz="-281.47" Lzz="8.9776e+06"
         />
 	</link>
 
@@ -100,9 +102,9 @@
 	</joint>
 	<link name="arm_a6">
 		<xacro:sw_inertial
-            m=2.2722 X=1.6533 Y=0.00019 Z=-0.001
-            Lxx=8.1895 Lxy=-8e-05 Lxz=0.00283
-            Lyy=8.8847 Lyz=-0.00074 Lzz=6.3573
+            m="2.2722" X="1.6533" Y="0.00019" Z="-0.001"
+            Lxx="8.1895" Lxy="-8e-05" Lxz="0.00283"
+            Lyy="8.8847" Lyz="-0.00074" Lzz="6.3573"
         />
 	</link>
 
@@ -115,6 +117,6 @@
 	</joint>
 
 	<link name="arm_a7">
-	<!-- Waiting for the gripper to be done -->
+	<!-- Waiting for the part to be finished -->
 	</link>
 </robot>
